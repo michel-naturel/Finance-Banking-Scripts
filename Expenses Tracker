@@ -1,0 +1,62 @@
+# An Expenses Tracker created as a project on freeCodeCamp.
+# It's a simple program using a user's input to store categorized expenses. The expenses dictionary is reset each time the code is run. Passing a letter
+# instead of amount of money will cause an error.
+
+# Defining a function add_expense that is adding a new entry to the dictionary - an amount and its category.
+def add_expense(expenses, amount, category):
+    expenses.append({'amount': amount, 'category': category})
+
+# A function printing on the screen all the content from the dictionary named expenses.
+def print_expenses(expenses):
+    for expense in expenses:
+        print(f'Amount: {expense["amount"]}, Category: {expense["category"]}')
+
+# A function first creating a list of amounts taken from the dictionary, then summing them all up.
+def total_expenses(expenses):
+    return sum(map(lambda expense: expense['amount'], expenses))
+
+# A function that shows all the expenses from certain category that is introduced by user.
+def filter_expenses_by_category(expenses, category):
+    return filter(lambda expense: expense['category'] == category, expenses)
+    
+# The main function. It creates a dictionary called expenses, shows up the menu and then lets a user choose the option.
+def main():
+    expenses = []
+    while True:
+        print('\nExpense Tracker')
+        print('1. Add an expense')
+        print('2. List all expenses')
+        print('3. Show total expenses')
+        print('4. Filter expenses by category')
+        print('5. Exit')
+       
+        choice = input('Enter your choice: ')
+
+# Calls add_expense function passing it input from the user.
+        if choice == '1':
+            amount = float(input('Enter amount: '))
+            category = input('Enter category: ')
+            add_expense(expenses, amount, category)
+
+# Calls print_expenses function.
+        elif choice == '2':
+            print('\nAll Expenses:')
+            print_expenses(expenses)
+
+# Calls total_expenses function.
+        elif choice == '3':
+            print('\nTotal Expenses: ', total_expenses(expenses))
+
+# Calls a filter_expenses_by_category function passing it an input from user: the category.
+        elif choice == '4':
+            category = input('Enter category to filter: ')
+            print(f'\nExpenses for {category}:')
+            expenses_from_category = filter_expenses_by_category(expenses, category)
+            print_expenses(expenses_from_category)
+
+# Breaks the while loop = terminates the program.
+        elif choice == '5':
+            print('Exiting the program.')
+            break
+
+main()
